@@ -37,6 +37,9 @@ sed -i 's/192.168.6.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 sed -i 's|IMG_PREFIX:=|IMG_PREFIX:=$(shell TZ="Asia/Shanghai" date +"%Y%m%d")-24.10-6.6-|' include/image.mk
 # make menuconfig
 
+# Fix libxcrypt build error with musl fortify
+sed -i '/^PKG_NAME:=libxcrypt/a PKG_FORTIFY_SOURCE:=0' package/feeds/packages/libxcrypt/Makefile
+
 # compile and build
 # make download -j8
 # make -j$(nproc)
